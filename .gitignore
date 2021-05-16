@@ -52,4 +52,4 @@ Mkfile.old
 dkms.conf
 
 # Test data
-Test_data/
+test_data/
