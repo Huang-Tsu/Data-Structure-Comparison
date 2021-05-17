@@ -52,41 +52,31 @@ void print_rand(int *data, int len, char *file_name){
 	}
 	fclose(fp);
 }
-void make_rand_for_insert(int *base){
+void make_rand(int *base){
 	int len;
-	initialize_base(base, RAND_RANGE);
-	shuffle_base(base, RAND_RANGE);
+	char **file_name;
 
-	len = (int)1e4;
-	for(int i=1; i<=3; i++){
-		print_rand(base, len, file_for_insert[i]);
-		len *= 10;
-	}
+		//making data for insert
+	for(int k=0; k<2; k++){
+		initialize_base(base, RAND_RANGE);
+		shuffle_base(base, RAND_RANGE);
 
-}
-void make_rand_for_query(){
-	FILE *fp;
-	int random_num;
-	int rand_cnt;
-	int len = (int)1e3;
-	for(int i=1; i<=3; i++){
-		rand_cnt = 0;
-
-		fp = fopen(file_for_query[i], "w");	
-			if(!fp){
-				printf("open %s failed!\n", file_for_query[i]);
-				exit(1);
-			}
-
-		while(rand_cnt < len){
-			random_num = (int)(rand() / (RAND_MAX+1.0) * RAND_RANGE);
-			fprintf(fp, "%d\n", random_num);
-			rand_cnt ++;
+		if(k==0){
+			file_name = file_for_insert;
+			len = (int)1e4;
+		} else{
+			file_name = file_for_query;
+			len = (int)1e3;
 		}
-		fclose(fp);
-		
-		len *= 10;
+
+		for(int i=1; i<=3; i++){
+			print_rand(base, len, file_name[i]);
+			len *= 10;
+		}
 	}
+
+		//making data for query
+
 }
 
 
@@ -94,9 +84,8 @@ int main(){
 	int shuffle_base[RAND_RANGE];
 
 	system("mkdir -p test_data");
-	//making data for insert
-	make_rand_for_insert(shuffle_base);
-	make_rand_for_query();
-	//making rand for query
+		//making data for insert
+	make_rand(shuffle_base);
+
 	return 0;
 }
