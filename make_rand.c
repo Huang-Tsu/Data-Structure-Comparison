@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #define RAND_RANGE ((int)1e6)
+#define START_VALUE_FOR_INSERT ((int)1e4)
+#define START_VALUE_FOR_QUERY ((int)1e3)
 
 char *file_for_insert[] = {
 	"",
@@ -14,6 +16,10 @@ char *file_for_query[] = {
 	"./test_data/1e3_query",
 	"./test_data/1e4_query",
 	"./test_data/1e5_query"
+};
+char **file_name[] = {
+	file_for_insert,
+	file_for_query
 };
 void swap(int *array, int idx1, int idx2){
 	static int temp;
@@ -53,29 +59,21 @@ void print_rand(int *data, int len, char *file_name){
 	fclose(fp);
 }
 void make_rand(int *base){
-	int len;
-	char **file_name;
+	int i, k;
+	int len[] = {
+		START_VALUE_FOR_INSERT,
+		START_VALUE_FOR_QUERY
+	};
 
-		//making data for insert
-	for(int k=0; k<2; k++){
+	for(k=0; k<2; k++){
 		initialize_base(base, RAND_RANGE);
 		shuffle_base(base, RAND_RANGE);
 
-		if(k==0){
-			file_name = file_for_insert;
-			len = (int)1e4;
-		} else{
-			file_name = file_for_query;
-			len = (int)1e3;
-		}
-
-		for(int i=1; i<=3; i++){
-			print_rand(base, len, file_name[i]);
-			len *= 10;
+		for(i=1; i<=3; i++){
+			print_rand(base, len[k], file_name[k][i]);
+			len[k] *= 10;
 		}
 	}
-
-		//making data for query
 
 }
 
