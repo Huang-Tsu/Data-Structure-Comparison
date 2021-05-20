@@ -1,16 +1,29 @@
-whole:= main.o 
+whole_dot_o:= main.o linked_list.o side_func.o
 CFLAG:=-Wall -g -fsanitize=undefined -fsanitize=address -fsanitize=leak
-all: $(whole) 				
-	@echo "gcc $(whole) -o main\n"
-	@gcc $(CFLAG) $(whole) -o main 
+whole_dot_h:= basic.h linked_list.h
+all: $(whole_dot_o)
+	@echo "gcc $(whole_dot_o) -o main\n"
+	@gcc $(CFLAG) $(whole_dot_o) -o main
 
-%.o: %.c 
+#%.o: %.c basic.h
+#	@echo "gcc -c $<\n"
+#	@gcc -c $(CFLAG) $<
+#
+main.o: main.c $(whole_dot_h)
+	@echo "gcc -c main.c\n"
+	@gcc -c $(CFLAG) $<
+
+linked_list.o: linked_list.c basic.h linked_list.h
 	@echo "gcc -c $<\n"
-	@gcc -c $(CFLAG) $< 
+	@gcc -c $(CFLAG) $<
+
+side_func.o: side_func.c basic.h
+	@echo "gcc -c $<\n"
+	@gcc -c $(CFLAG) $<
 
 .PHONY = clean
 clean:
-	-rm -f $(whole) main 
+	-rm -f $(whole_dot_o) main
 #	'-' 在開頭表示，就算後面出錯，這樣執行這行指令
 #	'@' 在開頭表示不顯示這行指令
 
