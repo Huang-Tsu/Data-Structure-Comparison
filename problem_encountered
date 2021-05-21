@@ -1,0 +1,6 @@
+Linked list:
+	用遞迴走訪Linked list會stack over-flow
+	->改成用loof走訪
+	
+	每次插入都重新找尾巴會花很多時間
+	->用一個變數存取尾巴，下次插入直接從尾巴插入
