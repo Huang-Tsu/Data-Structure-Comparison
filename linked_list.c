@@ -6,8 +6,9 @@ struct List{
 	List *next;
 };
 
-	int g_query_cnt = 0;
+	long long g_query_cnt = 0;
 	int g_node_cnt = 0;
+	int g_find_cnt = 0;
 
 void TestLinkedList(DataForProcess *insert, DataForProcess *query){
 	Timeval start;
@@ -16,21 +17,23 @@ void TestLinkedList(DataForProcess *insert, DataForProcess *query){
 	List *root = NULL;
 
 		printf("insert->len:%d\n", insert->len);
-	puts("Linked List");
+	puts("Linked List:");
 	
 	gettimeofday(&start, NULL);
 	root = BuildLinkList(insert);
 	gettimeofday(&end, NULL);
 	diff = 1000000*(end.tv_sec-start.tv_sec) + end.tv_usec-start.tv_usec;
-	printf("Build %d data time: %f sec.\n\n", insert->len, diff/1000000.0);
-		puts("Done building.");
+	printf("Build %d data time: %f sec.\n", insert->len, diff/1000000.0);
+		puts("Done building.\n");
 
+		puts("Start query");
 	gettimeofday(&start, NULL);
 	QueryLinkedList(root, query);
 	gettimeofday(&end, NULL);
 	diff = 1000000*(end.tv_sec-start.tv_sec) + end.tv_usec-start.tv_usec;
 	printf("Querying %d data time: %f sec.\n", query->len, diff/1000000.0);
-		printf("Query_cnt:%d\n", g_query_cnt);
+		printf("Find cnt:%d\n", g_find_cnt);
+		printf("Query_cnt:%lld\n", g_query_cnt);
 
 	FreeList(root);
 	//free(root);
@@ -40,11 +43,12 @@ void TestLinkedList(DataForProcess *insert, DataForProcess *query){
 	return;
 }
 List *BuildLinkList(DataForProcess *insert){
-	List *root = NULL;
+	List *root, *tail;
+	root = tail = NodeInitilize(insert->data[0]);
 	int i;
 
-	for(i=0; i<insert->len; i++){
-		root = InsertNode(root, insert->data[i]);
+	for(i=1; i<insert->len; i++){
+		tail = InsertNode(tail, insert->data[i]);
 			if(i == insert->len/2)
 			puts("Done half");
 	}
@@ -63,29 +67,13 @@ void QueryLinkedList(List *node, DataForProcess *query){
 
 	return;
 }
-List *InsertNode(List *node, int input){
-	if(!node){
-			if(g_node_cnt > 82000){
-				printf("In InsertNode g_node_cnt:%d\n", g_node_cnt);
-			}
-		node = NodeInitilize(input);
-		return node;
-	}
-
-	node->next = InsertNode(node->next, input);
-
-	return node;
+List *InsertNode(List *ptr, int input){
+	return ptr->next = NodeInitilize(input);
 }
 List *NodeInitilize(int input){
 			g_node_cnt ++;
 	static List *new_node;
-			if(g_node_cnt > 82000){
-				printf("In NodeIni g_node_cnt:%d\n", g_node_cnt);
-			}
 	new_node = (List*)calloc(1, sizeof(List));
-			if(g_node_cnt > 82000){
-				printf("In NodeIni g_node_cnt:%d\n", g_node_cnt);
-			}
 		if(!new_node){
 			puts("Memory allocation failed.");
 			exit(1);
@@ -96,24 +84,60 @@ List *NodeInitilize(int input){
 
 	return new_node;
 }
-void FreeList(List *node){
-	if(!node)
-		return;
+void FreeList(List *ptr){
+	List *next_node;
 
+	for(ptr; ptr->next; ptr=next_node){
+		next_node = ptr->next;
+		free(ptr);
+	}
 
-	FreeList(node->next);
+}
+void FindNode(List *ptr, int input){
+	static List *previous_node;
+	/*
+		for(ptr; ptr->next; ptr=ptr->next){
+			g_query_cnt++;
+			if(ptr->value == input){
+					g_find_cnt++;
+				return;
+			}
+		}
+		*/
+	/*
+			g_query_cnt++;
+			if(ptr->value == input){
+				g_find_cnt++;
+				return;
+			}
+		while(ptr->next){
+				g_query_cnt ++;
+			if(ptr->next->value == input){
+				g_find_cnt++;
+				ptr->next = DeNode(ptr->next);
+				return;
+			}
 
-	free(node);
+			ptr = ptr->next;
+		}
+		*/
+	for(ptr; ptr; ptr=ptr->next){
+			g_query_cnt ++;
+		if(ptr->value == input){
+				g_find_cnt++;
+			previous_node->next = DeNode(ptr);
+			return;
+		}
+		previous_node = ptr;
+	}
 
 	return;
 }
-void FindNode(List *node, int input){
-	if(!node)
-		return;
+List *DeNode(List *node){
+	static List *new_node;
+	new_node = node->next;
 
-			g_query_cnt++;
-	if(node->value == input)
-		return;
+	free(node);
 
-	FindNode(node->next, input);
+	return new_node;
 }

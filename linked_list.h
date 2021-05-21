@@ -7,3 +7,4 @@ List *NodeInitilize(int input);
 List *InsertNode(List *node, int input);
 void FreeList(List *node);
 void FindNode(List *node, int input);
+List *DeNode(List *node);
