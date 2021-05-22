@@ -1,4 +1,4 @@
-whole_dot_o:= main.o linked_list.o side_func.o array.o bs_array.o bst.o
+whole_dot_o:= main.o linked_list.o side_func.o array.o bs_array.o bst.o hash.o
 CFLAG:=-Wall -g -fsanitize=undefined -fsanitize=address -fsanitize=leak
 whole_dot_h:= basic.h linked_list.h array.h bs_array.h bst.h
 all: $(whole_dot_o)
@@ -26,6 +26,10 @@ bs_array.o: bs_array.c bs_array.h basic.h
 	@gcc -c $(CFLAG) $<
 
 bst.o: bst.c bst.h basic.h
+	@echo "gcc -c $<\n"
+	@gcc -c $(CFLAG) $<
+
+hash.o: hash.c hash.h basic.h
 	@echo "gcc -c $<\n"
 	@gcc -c $(CFLAG) $<
 

@@ -3,6 +3,7 @@
 #include "array.h"
 #include "bs_array.h"
 #include "bst.h"
+#include "hash.h"
 
 int main(int argc, char **argv){
 	if(argc < 6){
@@ -51,13 +52,15 @@ int main(int argc, char **argv){
 	CopyData(data_insert, tmp_data_insert);
 	CopyData(data_query, tmp_data_query);
 
-	TestLinkedList(data_insert, data_query);
+	//TestLinkedList(data_insert, data_query);
 
 	//TestArray(data_insert, data_query);
 
-	TestBSArray(data_insert, data_query);
+	//TestBSArray(data_insert, data_query);
 	
-	TestBST(data_insert, data_query);
+	//TestBST(data_insert, data_query);
+	
+	TestHash(data_insert, data_query);
 
 	free(data_insert);
 	free(data_query);
