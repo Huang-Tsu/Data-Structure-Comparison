@@ -64,10 +64,8 @@ void QueryBST(TreeNode *node, DataForProcess *query){
 	return;
 }
 TreeNode *InsertBSTNode(TreeNode *node, int input){
-	if(!node){
-		node = InitializeBSTNode(input);
-		return node;
-	}
+	if(!node)
+		return InitializeBSTNode(input);
 
 	if(input < node->value)
 		node->left = InsertBSTNode(node->left, input);
