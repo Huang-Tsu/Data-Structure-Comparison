@@ -2,6 +2,7 @@
 #include "linked_list.h"
 #include "array.h"
 #include "bs_array.h"
+#include "bst.h"
 
 int main(int argc, char **argv){
 	if(argc < 6){
@@ -52,9 +53,11 @@ int main(int argc, char **argv){
 
 	TestLinkedList(data_insert, data_query);
 
-	TestArray(data_insert, data_query);
+	//TestArray(data_insert, data_query);
 
 	TestBSArray(data_insert, data_query);
+	
+	TestBST(data_insert, data_query);
 
 	free(data_insert);
 	free(data_query);
