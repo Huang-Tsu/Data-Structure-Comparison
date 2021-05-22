@@ -1,5 +1,6 @@
 #include "basic.h"
 #include "linked_list.h"
+#include "array.h"
 int main(int argc, char **argv){
 	if(argc < 6){
 		puts("Too few command line argument");
@@ -46,7 +47,10 @@ int main(int argc, char **argv){
 
 	CopyData(data_insert, tmp_data_insert);
 	CopyData(data_query, tmp_data_query);
+
 	TestLinkedList(data_insert, data_query);
+
+	TestArray(data_insert, data_query);
 
 	free(data_insert);
 	free(data_query);

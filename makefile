@@ -1,6 +1,6 @@
-whole_dot_o:= main.o linked_list.o side_func.o
+whole_dot_o:= main.o linked_list.o side_func.o array.o
 CFLAG:=-Wall -g -fsanitize=undefined -fsanitize=address -fsanitize=leak
-whole_dot_h:= basic.h linked_list.h
+whole_dot_h:= basic.h linked_list.h array.h
 all: $(whole_dot_o)
 	@echo "gcc $(whole_dot_o) -o main\n"
 	@gcc $(CFLAG) $(whole_dot_o) -o main
@@ -13,13 +13,18 @@ main.o: main.c $(whole_dot_h)
 	@echo "gcc -c main.c\n"
 	@gcc -c $(CFLAG) $<
 
-linked_list.o: linked_list.c basic.h linked_list.h
+linked_list.o: linked_list.c linked_list.h basic.h
+	@echo "gcc -c $<\n"
+	@gcc -c $(CFLAG) $<
+
+array.o: array.c array.h basic.h
 	@echo "gcc -c $<\n"
 	@gcc -c $(CFLAG) $<
 
 side_func.o: side_func.c basic.h
 	@echo "gcc -c $<\n"
 	@gcc -c $(CFLAG) $<
+
 
 .PHONY = clean
 clean:

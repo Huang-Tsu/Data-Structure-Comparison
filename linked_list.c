@@ -6,9 +6,9 @@ struct List{
 	List *next;
 };
 
-	long long g_query_cnt = 0;
-	int g_node_cnt = 0;
-	int g_find_cnt = 0;
+	static long long g_query_cnt = 0;
+	static int g_node_cnt = 0;
+	static int g_find_cnt = 0;
 
 void TestLinkedList(DataForProcess *insert, DataForProcess *query){
 	Timeval start;
@@ -16,29 +16,29 @@ void TestLinkedList(DataForProcess *insert, DataForProcess *query){
 	unsigned long diff;
 	List *root = NULL;
 
-		printf("insert->len:%d\n", insert->len);
-	puts("Linked List:");
+	puts("\t\033[3m\033[1mLinked List:\033[m");
 	
 	gettimeofday(&start, NULL);
 	root = BuildLinkList(insert);
 	gettimeofday(&end, NULL);
 	diff = 1000000*(end.tv_sec-start.tv_sec) + end.tv_usec-start.tv_usec;
 	printf("Build %d data time: %f sec.\n", insert->len, diff/1000000.0);
-		puts("Done building.\n");
 
-		puts("Start query");
+	puts("--------------------");
+
+		puts("\t(Start querying...");
 	gettimeofday(&start, NULL);
 	QueryLinkedList(root, query);
 	gettimeofday(&end, NULL);
 	diff = 1000000*(end.tv_sec-start.tv_sec) + end.tv_usec-start.tv_usec;
 	printf("Querying %d data time: %f sec.\n", query->len, diff/1000000.0);
-		printf("Find cnt:%d\n", g_find_cnt);
-		printf("Query_cnt:%lld\n", g_query_cnt);
+		printf("\tFind cnt:%d\n", g_find_cnt);
+		printf("\tQuery_cnt:%lld\n", g_query_cnt);
 
+		puts("____________________\n");
 	FreeList(root);
 	//free(root);
 
-	puts("--------------------");
 
 	return;
 }
@@ -49,8 +49,6 @@ List *BuildLinkList(DataForProcess *insert){
 
 	for(i=1; i<insert->len; i++){
 		tail = InsertNode(tail, insert->data[i]);
-			if(i == insert->len/2)
-			puts("Done half");
 	}
 
 	return root;
@@ -60,9 +58,6 @@ void QueryLinkedList(List *node, DataForProcess *query){
 	int i;
 	for(i=0; i<query->len; i++){
 		FindNode(node, query->data[i]);
-			if(i == (query->len)/2)
-			puts("Done half");
-			//FindNode(node, 214748354);
 	}
 
 	return;
