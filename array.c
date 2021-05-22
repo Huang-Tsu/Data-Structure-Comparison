@@ -23,7 +23,7 @@ void TestArray(DataForProcess *insert, DataForProcess *query){
 
 		puts("\t(Start querying...");
 	gettimeofday(&start, NULL);
-	QueryArray(array, insert->len,  query);
+	QueryArray(array, insert->len, query);
 	gettimeofday(&end, NULL);
 	diff = 1000000*(end.tv_sec-start.tv_sec) + end.tv_usec-start.tv_usec;
 	printf("Querying %d data time: %f sec.\n", query->len, diff/1000000.0);
