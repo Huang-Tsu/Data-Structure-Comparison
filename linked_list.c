@@ -83,7 +83,7 @@ List *NodeInitilize(int input){
 void FreeList(List *ptr){
 	List *next_node;
 
-	for(ptr; ptr->next; ptr=next_node){
+	for(ptr; ptr; ptr=next_node){
 		next_node = ptr->next;
 		free(ptr);
 	}
