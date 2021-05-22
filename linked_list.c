@@ -46,8 +46,9 @@ List *BuildLinkList(DataForProcess *insert){
 	List *root, *tail;
 	root = tail = NodeInitilize(insert->data[0]);
 	int i;
+	int len = insert->len;
 
-	for(i=1; i<insert->len; i++){
+	for(i=1; i<len; i++){
 		tail = InsertNode(tail, insert->data[i]);
 	}
 
