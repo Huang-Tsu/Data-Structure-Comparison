@@ -13,3 +13,10 @@ Binary Search array:
 	故，美次近來都要初始的話要:
 	static int low;
 	low = 0;
+
+Hash:
+	在hash結構宣告的時候，用一個變數存該節點的linked list 尾巴
+	下次發生collision時，就可以直接從尾巴插入，不用再走訪一次linked list
+
+	在table大的時候感覺不出差別(collosion 很少)
+	但table小時(collision多)時就可以發現差別
