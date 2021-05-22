@@ -1,6 +1,8 @@
 #include "basic.h"
 #include "linked_list.h"
 #include "array.h"
+#include "bs_array.h"
+
 int main(int argc, char **argv){
 	if(argc < 6){
 		puts("Too few command line argument");
@@ -52,6 +54,8 @@ int main(int argc, char **argv){
 
 	TestArray(data_insert, data_query);
 
+	TestBSArray(data_insert, data_query);
+
 	free(data_insert);
 	free(data_query);
 
@@ -60,4 +64,3 @@ int main(int argc, char **argv){
 		
 	return 0;
 }
-
