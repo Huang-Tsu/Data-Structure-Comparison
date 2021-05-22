@@ -4,3 +4,12 @@ Linked list:
 	
 	每次插入都重新找尾巴會花很多時間
 	->用一個變數存取尾巴，下次插入直接從尾巴插入
+
+Binary Search array:
+	在binary search function裡
+	用static int low = 0; 
+	來初始化low，本來以為每次近來都會重新指定0給low
+	事實上low的跟記憶體一樣只有在第一次會初始
+	故，美次近來都要初始的話要:
+	static int low;
+	low = 0;
