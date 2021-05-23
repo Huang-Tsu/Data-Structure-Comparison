@@ -9,6 +9,7 @@ struct HashTable{
 
 	static long long g_query_cnt = 0;
 	static int g_find_cnt = 0;
+		static int g_HASH_SIZE = (int)1e4;
 
 void TestHash(DataForProcess *insert, DataForProcess *query){
 	Timeval start;
@@ -16,7 +17,10 @@ void TestHash(DataForProcess *insert, DataForProcess *query){
 	unsigned long diff;
 	HashTable **root;
 
-	puts("\t\033[3m\033[1mHash:\033[m");
+		for(int i=0; i<3; i++){
+			g_query_cnt = 0;
+			g_find_cnt = 0;
+	printf("\t\033[3m\033[1mHash:\t(table size:%d\033[m\n", g_HASH_SIZE);
 	
 	gettimeofday(&start, NULL);
 	root = BuildHashTable(insert);
@@ -37,6 +41,8 @@ void TestHash(DataForProcess *insert, DataForProcess *query){
 
 		puts("____________________\n");
 	FreeHashTable(root);
+		g_HASH_SIZE *= 10;
+		}
 	//free(root);
 
 
@@ -45,10 +51,10 @@ void TestHash(DataForProcess *insert, DataForProcess *query){
 HashTable **BuildHashTable(DataForProcess *insert){
 	int i;
 	int insert_len = insert->len;
-	HashTable **root = (HashTable**)calloc(HASH_SIZE, sizeof(HashTable*));
+	HashTable **root = (HashTable**)calloc(g_HASH_SIZE, sizeof(HashTable*));
 
 	
-	for(i=0; i<HASH_SIZE; i++)
+	for(i=0; i<g_HASH_SIZE; i++)
 		root[i] = NULL;
 
 	for(i=0; i<insert_len; i++){
@@ -98,7 +104,7 @@ HashTable *InitializeHashNode(int input){
 	return new_node;
 }
 void FreeHashTable(HashTable **table){
-	for(int i=0; i<HASH_SIZE; i++){
+	for(int i=0; i<g_HASH_SIZE; i++){
 		if(table[i])
 			FreeTableList(table[i]);
 	}
@@ -132,5 +138,5 @@ void LookUpTable(HashTable **table, int input){
 	}
 }
 inline int Hash(int input){
-	return input%HASH_SIZE;	
+	return input%g_HASH_SIZE;	
 }

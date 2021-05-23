@@ -1,6 +1,6 @@
 typedef struct HashTable HashTable;
 
-#define HASH_SIZE ((int)1e5)
+//#define HASH_SIZE ((int)1e5)
 void TestHash(DataForProcess *insert, DataForProcess *query);
 HashTable **BuildHashTable(DataForProcess *insert);
 void QueryHashTable(HashTable **root, DataForProcess *query);
