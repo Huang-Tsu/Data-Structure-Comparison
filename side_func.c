@@ -18,7 +18,8 @@ void GetRand(int *insert, int *query){
 }
 void CopyData(DataForProcess *to, int *from){
 	int i;
-	for(i=0; i<to->len; i++){
-		to->data[i] = from[to->len-1-i];
+	int len = to->len;
+	for(i=0; i<len; i++){
+		to->data[i] = from[len-1-i];
 	}
 }
