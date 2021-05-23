@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define RAND_RANGE ((int)1e7)
+#define RAND_RANGE ((int)1e8)
 #define INSERT_DATA_LEN ((int)1e6)
 #define QUERY_DATA_LEN ((int)1e5)
 
@@ -68,7 +68,7 @@ void MakeRand(int *base){
 
 
 int main(){
-	int *shuffle_base = (int*)calloc((int)1e7, sizeof(int));
+	int *shuffle_base = (int*)calloc((int)RAND_RANGE, sizeof(int));
 
 	system("mkdir -p test_data");
 	MakeRand(shuffle_base);
