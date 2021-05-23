@@ -4,6 +4,7 @@
 #include "bs_array.h"
 #include "bst.h"
 #include "hash.h"
+#include "avl_tree.h"
 
 int main(int argc, char **argv){
 	if(argc < 6){
@@ -56,11 +57,13 @@ int main(int argc, char **argv){
 
 	//TestArray(data_insert, data_query);
 
-	//TestBSArray(data_insert, data_query);
+	TestBSArray(data_insert, data_query);
 	
-	//TestBST(data_insert, data_query);
+	TestBST(data_insert, data_query);
 	
 	TestHash(data_insert, data_query);
+
+	TestAVLTree(data_insert, data_query);
 
 	free(data_insert);
 	free(data_query);
