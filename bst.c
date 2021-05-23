@@ -17,8 +17,8 @@ void TestBST(DataForProcess *insert, DataForProcess *query){
 	unsigned long diff;
 	TreeNode *root = NULL;
 
-	puts("\t\033[3m\033[1mLinked TreeNode:\033[m");
-	
+	puts("\t\033[3m\033[1mBinary Search Tree:\033[m");
+
 	gettimeofday(&start, NULL);
 	root = BuildBST(insert);
 	gettimeofday(&end, NULL);
@@ -96,13 +96,13 @@ void FreeBST(TreeNode *node){
 
 	FreeBST(node->left);
 	FreeBST(node->right);
-	
+
 	free(node);
 }
 void FindBSTNode(TreeNode *node, int input){
 	if(!node)
 		return;
-	
+
 		g_query_cnt ++;
 	if(input == node->value){
 			g_find_cnt++;
