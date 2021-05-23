@@ -64,8 +64,8 @@ void BinarySearch(int *array, int len, int input){
 	static int high;
 	static int low;
 	static int mid;
-	low = 0;
-	high = len-1;
+	low = -1;
+	high = len;
 
 	while(low < high-1){
 			g_query_cnt ++;
