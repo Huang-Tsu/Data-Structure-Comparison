@@ -9,7 +9,7 @@ struct HashTable{
 
 	static long long g_query_cnt = 0;
 	static int g_find_cnt = 0;
-		static int g_HASH_SIZE = (int)1e4;
+	static int g_HASH_SIZE = (int)1e4;
 
 void TestHash(DataForProcess *insert, DataForProcess *query){
 	Timeval start;
@@ -17,33 +17,32 @@ void TestHash(DataForProcess *insert, DataForProcess *query){
 	unsigned long diff;
 	HashTable **root;
 
-		for(int i=0; i<3; i++){
-			g_query_cnt = 0;
-			g_find_cnt = 0;
-	printf("\t\033[3m\033[1mHash:\t(table size:%d\033[m\n", g_HASH_SIZE);
-	
-	gettimeofday(&start, NULL);
-	root = BuildHashTable(insert);
-	gettimeofday(&end, NULL);
-	diff = 1000000*(end.tv_sec-start.tv_sec) + end.tv_usec-start.tv_usec;
-	printf("Build %d data time: %f sec.\n", insert->len, diff/1000000.0);
+	for(int i=0; i<3; i++){
+		g_query_cnt = 0;
+		g_find_cnt = 0;
+		printf("\t\033[3m\033[1mHash:\t(table size:%d\033[m\n", g_HASH_SIZE);
+		
+		gettimeofday(&start, NULL);
+		root = BuildHashTable(insert);
+		gettimeofday(&end, NULL);
+		diff = 1000000*(end.tv_sec-start.tv_sec) + end.tv_usec-start.tv_usec;
+		printf("Build %d data time: %f sec.\n", insert->len, diff/1000000.0);
 
-	puts("--------------------");
+		puts("--------------------");
 
 		puts("\t(Start querying...");
-	gettimeofday(&start, NULL);
-	QueryHashTable(root, query);
-	gettimeofday(&end, NULL);
-	diff = 1000000*(end.tv_sec-start.tv_sec) + end.tv_usec-start.tv_usec;
-	printf("Querying %d data time: %f sec.\n", query->len, diff/1000000.0);
+		gettimeofday(&start, NULL);
+		QueryHashTable(root, query);
+		gettimeofday(&end, NULL);
+		diff = 1000000*(end.tv_sec-start.tv_sec) + end.tv_usec-start.tv_usec;
+		printf("Querying %d data time: %f sec.\n", query->len, diff/1000000.0);
 		printf("\tFind cnt:%d\n", g_find_cnt);
 		printf("\tQuery_cnt:%lld\n", g_query_cnt);
 
 		puts("____________________\n");
-	FreeHashTable(root);
+		FreeHashTable(root);
 		g_HASH_SIZE *= 10;
-		}
-	//free(root);
+	}
 
 
 	return;
@@ -65,6 +64,7 @@ HashTable **BuildHashTable(DataForProcess *insert){
 }
 void QueryHashTable(HashTable **root, DataForProcess *query){
 	int i;
+
 	for(i=0; i<query->len; i++){
 		LookUpTable(root, query->data[i]);
 	}
@@ -73,17 +73,12 @@ void QueryHashTable(HashTable **root, DataForProcess *query){
 }
 void InsertHashNode(HashTable **table, int input){
 	static int idx;
-			//static HashTable *hash_list;
 	idx = Hash(input);
-			//hash_list = table[idx];
 
 	if(!table[idx]){
 		table[idx] = InitializeHashNode(input);
 		return;
 	}else{
-			//for(hash_list; hash_list->next; hash_list=hash_list->next)	
-				//;
-			//hash_list->next = InitializeHashNode(input);
 		table[idx]->tail->next = InitializeHashNode(input);
 		table[idx]->tail = table[idx]->tail->next;
 	}
@@ -125,13 +120,16 @@ void LookUpTable(HashTable **table, int input){
 	table_list = table[idx];
 
 	if(!table_list){
-			g_query_cnt++;
+		g_query_cnt++;
+
 		return;
 	} else{
 		for(table_list; table_list!=NULL; table_list=table_list->next){
-				g_query_cnt++;
+			g_query_cnt++;
+
 			if(table_list->value == input){
-					g_find_cnt++;
+				g_find_cnt++;
+
 				return;
 			}
 		}
