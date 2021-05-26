@@ -20,3 +20,6 @@ Hash:
 
 	在table大的時候感覺不出差別(collosion 很少)
 	但table小時(collision多)時就可以發現差別
+
+Red-Black Tree:
+	不知道為什麼rbt query 的時間比 avl短，明明rbt的查詢次數也比較多
