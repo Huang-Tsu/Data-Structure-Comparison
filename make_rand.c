@@ -2,8 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #define RAND_RANGE ((int)1e8)
-#define INSERT_DATA_LEN ((int)1e6)
-#define QUERY_DATA_LEN ((int)1e5)
+//#define INSERT_DATA_LEN ((int)1e6)
+//#define QUERY_DATA_LEN ((int)1e5)
+#define DATA_LEN ((int)1e6)
 
 void Swap(int *array, int idx1, int idx2){
 	static int temp;
@@ -48,7 +49,7 @@ void GetRand(int *to, int *from, int len){
 	}
 }
 void MakeRand(int *base){
-	int output[INSERT_DATA_LEN];
+	int output[DATA_LEN];
 	int i;
 
 	InitializeBase(base, RAND_RANGE);
@@ -56,13 +57,15 @@ void MakeRand(int *base){
 		//make rand for insert
 	for(i=0; i<2; i++)
 		ShuffleBase(base, RAND_RANGE);
-	GetRand(output, base, INSERT_DATA_LEN);
-	PrintRand(output, INSERT_DATA_LEN, "./test_data/1e6_insert");
+
+	GetRand(output, base, DATA_LEN);
+	PrintRand(output, DATA_LEN, "./test_data/1e6_insert");
 
 		//make rand for query base on insert_data
 	for(i=0; i<2; i++)
-		ShuffleBase(output, INSERT_DATA_LEN);
-	PrintRand(output, QUERY_DATA_LEN, "./test_data/1e5_query");
+		ShuffleBase(output, DATA_LEN);
+
+	PrintRand(output, DATA_LEN, "./test_data/1e5_query");
 
 }
 

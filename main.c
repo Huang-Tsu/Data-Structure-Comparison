@@ -14,8 +14,8 @@ int main(int argc, char **argv){
 	}
 
 
-	int tmp_data_insert[MAX_INSERT_LEN];
-	int tmp_data_query[MAX_QUERY_LEN];
+	int tmp_data_insert[MAX_DATA_LEN];
+	int tmp_data_query[MAX_DATA_LEN];
 	DataForProcess *data_insert = (DataForProcess*)calloc(1, sizeof(DataForProcess));
 	DataForProcess *data_query = (DataForProcess*)calloc(1, sizeof(DataForProcess));
 	int data_structure[MAX_DATA_STRUCTURE_CNT][1];

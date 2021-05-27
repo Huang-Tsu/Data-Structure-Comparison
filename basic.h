@@ -7,8 +7,8 @@
 #include <sys/time.h>
 
 #define MAX_DATA_LEN ((int)1e6)
-#define MAX_INSERT_LEN ((int)1e6)
-#define MAX_QUERY_LEN ((int)1e5)
+//#define MAX_INSERT_LEN ((int)1e6)
+//#define MAX_QUERY_LEN ((int)1e5)
 #define MAX_DATA_STRUCTURE_CNT 7
 
 enum{

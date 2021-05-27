@@ -3,9 +3,9 @@
 
 struct AVLNode{
 	int value;
+	int height;
 	AVLNode *left;
 	AVLNode *right;
-	int height;
 };
 
 	static long long g_query_cnt = 0;
