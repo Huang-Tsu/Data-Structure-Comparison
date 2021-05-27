@@ -90,7 +90,7 @@ void FreeList(List *ptr){
 
 }
 void FindNode(List *ptr, int input){
-	static List *previous_node;
+	//static List *previous_node;
 	/*
 		for(ptr; ptr->next; ptr=ptr->next){
 			g_query_cnt++;
@@ -121,14 +121,15 @@ void FindNode(List *ptr, int input){
 			g_query_cnt ++;
 		if(ptr->value == input){
 				g_find_cnt++;
-			previous_node->next = DeNode(ptr);
+			//previous_node->next = DeNode(ptr);
 			return;
 		}
-		previous_node = ptr;
+		//previous_node = ptr;
 	}
 
 	return;
 }
+/*
 List *DeNode(List *node){
 	static List *new_node;
 	new_node = node->next;
@@ -137,3 +138,4 @@ List *DeNode(List *node){
 
 	return new_node;
 }
+*/
