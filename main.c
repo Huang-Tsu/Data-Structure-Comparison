@@ -37,7 +37,7 @@ int main(int argc, char **argv){
 		}else if(strcmp("-q", *argv)==0){
 			argv ++;
 			data_query->len = (int)strtod(*argv, NULL);
-		} else{
+		} else if(**argv == '-'){
 			(*argv) ++;	//skip '-'
 
 			if(!strcmp(*argv, "ll"))
@@ -56,7 +56,9 @@ int main(int argc, char **argv){
 				data_structure[HASH][0] = 1;
 			else
 				printf("%s: parameter not found\n", --(*argv));
-		}
+		}else
+			printf("%s: parameter not found\n", *argv);
+
 		argv ++;
 	}
 
@@ -80,11 +82,12 @@ int main(int argc, char **argv){
 	if(data_structure[BST][0] == 1)
 		TestBST(data_insert, data_query);
 
+	if(data_structure[AVL][0] == 1)
+		TestAVLTree(data_insert, data_query);
+
 	if(data_structure[RBT][0] == 1)
 		TestRBT(data_insert, data_query);
 
-	if(data_structure[AVL][0] == 1)
-		TestAVLTree(data_insert, data_query);
 
 	free(data_insert);
 	free(data_query);

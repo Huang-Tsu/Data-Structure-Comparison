@@ -24,7 +24,7 @@ void TestRBT(DataForProcess *insert, DataForProcess *query){
 	nil->color = BLACK;
 	nil->parent = nil->left = nil->right = NULL;
 
-	puts("\t\033[3m\033[1mRBT Tree:\033[m");
+	puts("\t\033[3m\033[1mRed-Black Tree:\033[m");
 
 	gettimeofday(&start, NULL);
 	BuildRBT(insert);
