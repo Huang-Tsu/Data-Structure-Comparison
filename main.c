@@ -9,23 +9,26 @@
 
 int main(int argc, char **argv){
 	if(argc < 6){
-		puts("Too few command line argument");
+		puts("Too few command line arguments");
 		exit(1);
 	}
 
 
-	//Timeval start, end;
 	int tmp_data_insert[MAX_INSERT_LEN];
 	int tmp_data_query[MAX_QUERY_LEN];
 	DataForProcess *data_insert = (DataForProcess*)calloc(1, sizeof(DataForProcess));
 	DataForProcess *data_query = (DataForProcess*)calloc(1, sizeof(DataForProcess));
-	char *data_structure[MAX_DATA_STRUCTURE_CNT];
-	int data_structure_cnt = 0;
+	int data_structure[MAX_DATA_STRUCTURE_CNT][1];
+	//int data_structure_cnt = 0;
 	//void (*func_ptr) (char*, char*);
 	int i;
 
 	GetRand(tmp_data_insert, tmp_data_query);
 	
+	for(i=0; i<MAX_DATA_STRUCTURE_CNT; i++){
+		data_structure[i][0] = 0;
+	}
+
 	argv ++; 	//skip ./
 	while(*argv){
 		if(strcmp("-d", *argv)==0){
@@ -35,45 +38,57 @@ int main(int argc, char **argv){
 			argv ++;
 			data_query->len = (int)strtod(*argv, NULL);
 		} else{
-			(*argv) ++;
-			data_structure[data_structure_cnt++] = strdup(*argv);
-		}
+			(*argv) ++;	//skip '-'
 
+			if(!strcmp(*argv, "ll"))
+				data_structure[LL][0] = 1;
+			else if(!strcmp(*argv, "arr"))
+				data_structure[ARR][0] = 1;
+			else if(!strcmp(*argv, "bs"))
+				data_structure[BS][0] = 1;
+			else if(!strcmp(*argv, "bst"))
+				data_structure[BST][0] = 1;
+			else if(!strcmp(*argv, "avl"))
+				data_structure[AVL][0] = 1;
+			else if(!strcmp(*argv, "rbt"))
+				data_structure[RBT][0] = 1;
+			else if(!strcmp(*argv, "hash"))
+				data_structure[HASH][0] = 1;
+			else
+				printf("%s: parameter not found\n", --(*argv));
+		}
 		argv ++;
 	}
-
-
-
-	/*
-	for(i=0; i<data_structure_cnt; i++){
-		//fptr = 
-		//test_data_structure(insert_data, query_data, 
-	}
-	*/
 
 	CopyData(data_insert, tmp_data_insert);
 	CopyData(data_query, tmp_data_query);
 
-	//TestLinkedList(data_insert, data_query);
+	if(data_structure[LL][0] == 1)
+		TestLinkedList(data_insert, data_query);
 
-	//TestArray(data_insert, data_query);
+	if(data_structure[ARR][0] == 1)
+		TestArray(data_insert, data_query);
 
-	TestBSArray(data_insert, data_query);
+	
+	if(data_structure[BS][0] == 1)
+		TestBSArray(data_insert, data_query);
 	
 	
-	TestHash(data_insert, data_query);
+	if(data_structure[HASH][0] == 1)
+		TestHash(data_insert, data_query);
 
-	TestBST(data_insert, data_query);
+	if(data_structure[BST][0] == 1)
+		TestBST(data_insert, data_query);
 
-	TestRBT(data_insert, data_query);
+	if(data_structure[RBT][0] == 1)
+		TestRBT(data_insert, data_query);
 
-	TestAVLTree(data_insert, data_query);
+	if(data_structure[AVL][0] == 1)
+		TestAVLTree(data_insert, data_query);
 
 	free(data_insert);
 	free(data_query);
 
-	for(i=0; i<data_structure_cnt; i++)
-		free(data_structure[i]);
 		
 	return 0;
 }

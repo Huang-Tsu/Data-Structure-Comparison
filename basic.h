@@ -9,7 +9,17 @@
 #define MAX_DATA_LEN ((int)1e6)
 #define MAX_INSERT_LEN ((int)1e6)
 #define MAX_QUERY_LEN ((int)1e5)
-#define MAX_DATA_STRUCTURE_CNT 6
+#define MAX_DATA_STRUCTURE_CNT 7
+
+enum{
+	LL,
+	ARR,
+	BS,
+	BST,
+	AVL,
+	RBT,
+	HASH
+};
 
 typedef struct timeval Timeval;
 
@@ -20,6 +30,7 @@ typedef struct{
 
 void GetRand(int *insert, int *query);
 void CopyData(DataForProcess *to, int *from);
+
 
 #endif
 
