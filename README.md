@@ -6,7 +6,7 @@
 > - Binary Search Tree
 > - Hash
 > - AVL Tree
-> Red-Black Tree
+> - Red-Black Tree
 
 ## Usage
 1. Complie and run make_rand.c
